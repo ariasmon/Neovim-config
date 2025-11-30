@@ -1,0 +1,13 @@
+*.swp
+*.bak
+/lazy/
+/pack/
+/session/
+/undodir/
+/shada/
+/spell/
+/view/
+/backup/
+/log/
+/ftplugin/
+/mason/
