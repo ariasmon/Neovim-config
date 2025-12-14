@@ -66,7 +66,7 @@ return {
     build = ':TSUpdate',
     config = function()
       require('nvim-treesitter.configs').setup {
-        ensure_installed = { "python", "lua", "vim", "html", "css", "javascript", "bash" },
+        ensure_installed = { "python", "lua", "vim", "html", "css", "javascript", "bash", "markdown", "markdown_inline" },
         highlight = { enable = true },
         indent = { enable = true },
       }
@@ -156,7 +156,7 @@ return {
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
       require('mason-lspconfig').setup({
-        ensure_installed = { "pyright", "lua_ls", "bashls" }, -- Añadido bashls para scripts
+        ensure_installed = { "pyright", "lua_ls", "bashls", "marksman" },
         handlers = {
           function(server_name)
             require('lspconfig')[server_name].setup({
@@ -175,4 +175,21 @@ return {
       map('n', '<leader>f', vim.lsp.buf.format, { desc = 'Formatear código' })
     end
   },
+
+
+  -- ====================================================================
+  -- 9. MARKDOWN PREVIEW
+  -- ====================================================================
+  {
+    "iamcco/markdown-preview.nvim",
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    build = "cd app && npm install",
+    init = function()
+      vim.g.mkdp_filetypes = { "markdown" }
+    end,
+    ft = { "markdown" },
+    keys = {
+      { "<leader>mp", "<cmd>MarkdownPreviewToggle<CR>", desc = "Markdown Preview" },
+    },
+  }
 }
