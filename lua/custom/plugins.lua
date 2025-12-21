@@ -66,7 +66,7 @@ return {
     build = ':TSUpdate',
     config = function()
       require('nvim-treesitter.configs').setup {
-        ensure_installed = { "python", "lua", "vim", "html", "css", "javascript", "bash", "markdown", "markdown_inline" },
+        ensure_installed = { "python", "lua", "vim", "html", "css", "javascript", "bash", "markdown", "markdown_inline", "terraform", "hcl", "dockerfile", "yaml" },
         highlight = { enable = true },
         indent = { enable = true },
       }
@@ -156,7 +156,7 @@ return {
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
       require('mason-lspconfig').setup({
-        ensure_installed = { "pyright", "lua_ls", "bashls", "marksman" },
+        ensure_installed = { "pyright", "lua_ls", "bashls", "marksman", "terraformls", "tflint", "yamlls", "dockerls", "docker_compose_language_service" },
         handlers = {
           function(server_name)
             require('lspconfig')[server_name].setup({
@@ -191,5 +191,21 @@ return {
     keys = {
       { "<leader>mp", "<cmd>MarkdownPreviewToggle<CR>", desc = "Markdown Preview" },
     },
-  }
+  },
+
+  -- ====================================================================
+  -- 10. DEVOPS
+  -- ====================================================================
+  {
+    'towolf/vim-helm',
+    ft = 'helm',
+  },
+  {
+    'hashivim/vim-terraform',
+    ft = { "terraform", "hcl" },
+    config = function()
+        vim.g.terraform_fmt_on_save = 1 -- Formateo al guardar .tf
+    end
+  },
 }
+
