@@ -61,3 +61,12 @@ local function RunCurrentFile()
     end
 end
 vim.keymap.set('n', '<leader>r', RunCurrentFile, { desc = 'Ejecutar archivo' })
+
+-- Para evitar que darle al espacio cierre la ejecucion de codigo con terminal
+vim.api.nvim_create_autocmd("TermClose", {
+    group = vim.api.nvim_create_augroup("TerminalConfig", { clear = true }),
+    callback = function()
+        -- Al terminar el programa sale del modo terminal
+        vim.cmd("stopinsert")
+    end,
+})
