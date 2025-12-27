@@ -32,7 +32,9 @@ require("lazy").setup(require("custom.plugins"))
 local map = vim.keymap.set
 
 -- Generales
-map('n', '<leader>w', ':wq<CR>', { desc = 'Guardar y salir' })
+map('n', '<leader>w', '<cmd>w<CR>', { desc = 'Guardar' })
+map('n', '<leader>wq', ':wq<CR>', { desc = 'Guardar y salir' })
+map('n', '<leader>q', '<cmd>q<CR>', { desc = 'Salir sin guardar' })
 map('n', '<Esc>', '<cmd>nohlsearch<CR>', { desc = 'Limpiar resaltado' })
 
 -- Buffers
