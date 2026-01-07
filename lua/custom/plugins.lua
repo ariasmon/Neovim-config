@@ -207,5 +207,55 @@ return {
         vim.g.terraform_fmt_on_save = 1 -- Formateo al guardar .tf
     end
   },
-}
+  -- ====================================================================
+  -- 11. DEBUGGING (DAP)
+  -- ====================================================================
+  {
+    "mfussenegger/nvim-dap",
+    dependencies = {
+      "rcarriga/nvim-dap-ui",
+      "nvim-neotest/nvim-nio",
+      "williamboman/mason.nvim",
+      "mfussenegger/nvim-dap-python",
+    },
+    config = function()
+      local dap = require("dap")
+      local dapui = require("dapui")
 
+      dapui.setup()
+
+      local path = vim.fn.stdpath("data") .. "/mason/packages/debugpy/venv/bin/python"
+      require('dap-python').setup(path)
+
+      -- Para que se ponga la opcion del archivo actual automaticamente
+      dap.configurations.python = {
+        {
+          type = 'python',
+          request = 'launch',
+          name = 'Lanzar archivo actual',
+          program = '${file}',
+          pythonPath = path,
+        },
+      }
+
+      vim.fn.sign_define('DapBreakpoint', { text='🛑', texthl='DapBreakpoint', linehl='', numhl='' })
+      vim.fn.sign_define('DapStopped', { text='▶️', texthl='DapStopped', linehl='Visual', numhl='' })
+
+      dap.listeners.after.event_initialized["dapui_config"] = function()
+        dapui.open()
+      end
+      dap.listeners.after.event_terminated["dapui_config"] = function()
+        dapui.close()
+      end
+      dap.listeners.after.event_exited["dapui_config"] = function()
+        dapui.close()
+      end
+
+      local map = vim.keymap.set
+      map('n', '<F5>', function() dap.continue() end, { desc = 'Debug: Iniciar' })
+      map('n', '<F10>', function() dap.step_over() end, { desc = 'Debug: Siguiente Paso' })
+      map('n', '<F11>', function() dap.step_into() end, { desc = 'Debug: Entrar' })
+      map('n', '<leader>b', function() dap.toggle_breakpoint() end, { desc = 'Debug: Breakpoint' })
+    end
+  },
+}
