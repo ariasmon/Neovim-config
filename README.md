@@ -12,7 +12,7 @@ Se recomienda tener instaladas las siguientes herramientas para asegurar el func
 ## Plugins Instalados
 
 ### Interfaz
-* Catppuccin: Tema de colores (Mocha).
+* Selector de tema con Telescope.
 * Lualine: Barra de estado.
 * Nvim-web-devicons: Iconos de interfaz.
 
@@ -58,6 +58,7 @@ Se recomienda tener instaladas las siguientes herramientas para asegurar el func
 | <leader>fg | Buscar texto en archivos (Grep) |
 | <leader>fb | Buscar entre buffers abiertos |
 | <leader>fh | Buscar en la ayuda de Neovim |
+| <leader>th | Abrir selector temas |
 
 ### 3. Desarrollo y LSP
 

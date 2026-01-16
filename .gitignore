@@ -15,3 +15,5 @@ sessions/
 /pack/
 
 tags
+lazy-lock.json
+.last_theme
