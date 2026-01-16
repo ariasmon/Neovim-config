@@ -23,8 +23,12 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- Cargar Plugins
-require("lazy").setup(require("custom.plugins"))
+-- CONFIGURACIÓN DE PLUGINS MODIFICADA
+require("lazy").setup({
+  { import = "custom.plugins" },      -- Importar el plugins.lua
+  { import = "custom.themes" },  -- Importar lista temas
+  { import = "custom.switcher" },     -- Importar el selector en telescope
+})
 
 -- ====================================================================
 -- 3. ATAJOS DE TECLADO (Keymaps)
@@ -68,7 +72,22 @@ vim.keymap.set('n', '<leader>r', RunCurrentFile, { desc = 'Ejecutar archivo' })
 vim.api.nvim_create_autocmd("TermClose", {
     group = vim.api.nvim_create_augroup("TerminalConfig", { clear = true }),
     callback = function()
-        -- Al terminar el programa sale del modo terminal
         vim.cmd("stopinsert")
     end,
 })
+
+-- ====================================================================
+-- 4. GUARDAR ULTIMO TEMA 
+-- ====================================================================
+local theme_file = vim.fn.stdpath("config") .. "/.last_theme"
+local f = io.open(theme_file, "r")
+if f then
+    local last_theme = f:read("*all"):gsub("%s+", "")
+    f:close()
+    -- Se intenta cargar el tema guardado, si no es posible catppuccin
+    if not pcall(vim.cmd.colorscheme, last_theme) then
+        vim.cmd.colorscheme "catppuccin"
+    end
+else
+    vim.cmd.colorscheme "catppuccin"
+end
