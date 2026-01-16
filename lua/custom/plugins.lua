@@ -1,19 +1,6 @@
 return {
   -- ====================================================================
-  -- 1. TEMA (Catppuccin)
-  -- ====================================================================
-  {
-    'catppuccin/nvim',
-    name = 'catppuccin',
-    lazy = false,
-    priority = 1000,
-    config = function()
-      vim.cmd.colorscheme 'catppuccin-mocha'
-    end
-  },
-
-  -- ====================================================================
-  -- 2. LUALINE
+  -- 1. LUALINE
   -- ====================================================================
   {
     'nvim-lualine/lualine.nvim',
@@ -21,7 +8,7 @@ return {
     config = function()
       require('lualine').setup({
         options = {
-          theme = 'catppuccin',
+          theme = 'auto', 
           component_separators = '|',
           section_separators = '',
         },
@@ -30,7 +17,7 @@ return {
   },
 
   -- ====================================================================
-  -- 3. NVIMTREE
+  -- 2. NVIMTREE
   -- ====================================================================
   {
     'nvim-tree/nvim-tree.lua',
@@ -42,7 +29,7 @@ return {
   },
 
   -- ====================================================================
-  -- 4. TELESCOPE 
+  -- 3. TELESCOPE 
   -- ====================================================================
   {
     'nvim-telescope/telescope.nvim',
@@ -50,7 +37,6 @@ return {
     dependencies = { 'nvim-lua/plenary.nvim' },
     config = function()
       local builtin = require('telescope.builtin')
-      -- Atajos de teclado para buscar
       vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Buscar Archivos' })
       vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Buscar Texto en Proyecto' })
       vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Buscar en Buffers' })
@@ -59,7 +45,7 @@ return {
   },
 
   -- ====================================================================
-  -- 5. TREESITTER 
+  -- 4. TREESITTER 
   -- ====================================================================
   {
     'nvim-treesitter/nvim-treesitter',
@@ -74,7 +60,7 @@ return {
   },
 
   -- ====================================================================
-  -- 6. UTILIDADES: AUTOPAIRS 
+  -- 5. UTILIDADES: AUTOPAIRS 
   -- ====================================================================
   {
     'windwp/nvim-autopairs',
@@ -83,23 +69,20 @@ return {
   },
 
   -- ====================================================================
-  -- 7. AUTOCOMPLETADO (CMP)
+  -- 6. AUTOCOMPLETADO (CMP)
   -- ====================================================================
   {
     'hrsh7th/nvim-cmp',
     dependencies = {
-      'hrsh7th/cmp-nvim-lsp',     -- Fuente de datos del LSP
-      'L3MON4D3/LuaSnip',         -- Motor de snippets
-      'saadparwaiz1/cmp_luasnip', -- Conector de snippets
-      'rafamadriz/friendly-snippets', -- Colección de snippets útiles
+      'hrsh7th/cmp-nvim-lsp',
+      'L3MON4D3/LuaSnip',
+      'saadparwaiz1/cmp_luasnip',
+      'rafamadriz/friendly-snippets',
     },
     config = function()
       local cmp = require('cmp')
       local luasnip = require('luasnip')
-
-      -- Cargar snippets estilo VSCode
       require("luasnip.loaders.from_vscode").lazy_load()
-
       cmp.setup({
         snippet = {
           expand = function(args)
@@ -111,9 +94,9 @@ return {
           documentation = cmp.config.window.bordered(),
         },
         mapping = cmp.mapping.preset.insert({
-          ['<C-Space>'] = cmp.mapping.complete(),      -- Abrir menú manualmente
-          ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Enter para confirmar
-          ['<Tab>'] = cmp.mapping(function(fallback)   -- Tab para bajar
+          ['<C-Space>'] = cmp.mapping.complete(),
+          ['<CR>'] = cmp.mapping.confirm({ select = true }),
+          ['<Tab>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_next_item()
             elseif luasnip.expand_or_jumpable() then
@@ -122,7 +105,7 @@ return {
               fallback()
             end
           end, { 'i', 's' }),
-          ['<S-Tab>'] = cmp.mapping(function(fallback) -- Shift+Tab para subir
+          ['<S-Tab>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_prev_item()
             elseif luasnip.jumpable(-1) then
@@ -133,15 +116,15 @@ return {
           end, { 'i', 's' }),
         }),
         sources = {
-          { name = 'nvim_lsp' }, -- Fuente: Servidor de lenguaje
-          { name = 'luasnip' },  -- Fuente: Snippets
+          { name = 'nvim_lsp' },
+          { name = 'luasnip' },
         },
       })
     end
   },
 
   -- ====================================================================
-  -- 8. LSP, MASON Y FORMATO
+  -- 7. LSP, MASON Y FORMATO
   -- ====================================================================
   {
     'neovim/nvim-lspconfig',
@@ -151,10 +134,7 @@ return {
     },
     config = function()
       require('mason').setup()
-
-      -- Conexion autocompletado 
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
-
       require('mason-lspconfig').setup({
         ensure_installed = { "pyright", "lua_ls", "bashls", "marksman", "terraformls", "tflint", "yamlls", "dockerls", "docker_compose_language_service" },
         handlers = {
@@ -165,8 +145,6 @@ return {
           end,
         },
       })
-
-      -- ATAJOS de LSP
       local map = vim.keymap.set
       map('n', 'gd', vim.lsp.buf.definition, { desc = 'Ir a la definición' })
       map('n', 'K', vim.lsp.buf.hover, { desc = 'Ver documentación' })
@@ -176,9 +154,8 @@ return {
     end
   },
 
-
   -- ====================================================================
-  -- 9. MARKDOWN PREVIEW
+  -- 8. MARKDOWN PREVIEW
   -- ====================================================================
   {
     "iamcco/markdown-preview.nvim",
@@ -194,7 +171,7 @@ return {
   },
 
   -- ====================================================================
-  -- 10. DEVOPS
+  -- 9. DEVOPS
   -- ====================================================================
   {
     'towolf/vim-helm',
@@ -204,11 +181,12 @@ return {
     'hashivim/vim-terraform',
     ft = { "terraform", "hcl" },
     config = function()
-        vim.g.terraform_fmt_on_save = 1 -- Formateo al guardar .tf
+        vim.g.terraform_fmt_on_save = 1 
     end
   },
+
   -- ====================================================================
-  -- 11. DEBUGGING (DAP)
+  -- 10. DEBUGGING (DAP)
   -- ====================================================================
   {
     "mfussenegger/nvim-dap",
@@ -221,26 +199,11 @@ return {
     config = function()
       local dap = require("dap")
       local dapui = require("dapui")
-
       dapui.setup()
-
       local path = vim.fn.stdpath("data") .. "/mason/packages/debugpy/venv/bin/python"
       require('dap-python').setup(path)
-
-      -- Para que se ponga la opcion del archivo actual automaticamente
-      dap.configurations.python = {
-        {
-          type = 'python',
-          request = 'launch',
-          name = 'Lanzar archivo actual',
-          program = '${file}',
-          pythonPath = path,
-        },
-      }
-
       vim.fn.sign_define('DapBreakpoint', { text='🛑', texthl='DapBreakpoint', linehl='', numhl='' })
       vim.fn.sign_define('DapStopped', { text='▶️', texthl='DapStopped', linehl='Visual', numhl='' })
-
       dap.listeners.after.event_initialized["dapui_config"] = function()
         dapui.open()
       end
@@ -250,7 +213,6 @@ return {
       dap.listeners.after.event_exited["dapui_config"] = function()
         dapui.close()
       end
-
       local map = vim.keymap.set
       map('n', '<F5>', function() dap.continue() end, { desc = 'Debug: Iniciar' })
       map('n', '<F10>', function() dap.step_over() end, { desc = 'Debug: Siguiente Paso' })
