@@ -150,7 +150,7 @@ return {
       map('n', 'K', vim.lsp.buf.hover, { desc = 'Ver documentación' })
       map('n', '<leader>rn', vim.lsp.buf.rename, { desc = 'Renombrar variable' })
       map('n', '<leader>d', vim.diagnostic.open_float, { desc = 'Ver error/diagnóstico' })
-      map('n', '<leader>f', vim.lsp.buf.format, { desc = 'Formatear código' })
+      map('n', '<leader>fm', vim.lsp.buf.format, { desc = 'Formatear código' })
     end
   },
 

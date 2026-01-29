@@ -69,7 +69,7 @@ Se recomienda tener instaladas las siguientes herramientas para asegurar el func
 | K | Ver documentacion (Hover) |
 | <leader>rn | Renombrar variable en el archivo |
 | <leader>d | Ver error o diagnostico |
-| <leader>f | Formatear codigo automaticamente |
+| <leader>fm | Formatear codigo automaticamente |
 | <leader>mp | Previsualizar Markdown en el navegador |
 
 ### 4. Depuracion (DAP)
