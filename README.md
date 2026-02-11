@@ -5,6 +5,7 @@
 Se recomienda tener instaladas las siguientes herramientas para asegurar el funcionamiento de los plugins y el debugger:
 * git, curl, unzip, gcc, make
 * python3-venv (necesario para el funcionamiento del debugger)
+* [Nerd Font](https://www.nerdfonts.com/) instalada en tu terminal (para ver los iconos).
 * Un gestor de portapapeles
 
 ---
@@ -32,7 +33,7 @@ Se recomienda tener instaladas las siguientes herramientas para asegurar el func
 * Vim-Terraform: Soporte para archivos .tf y .hcl.
 * Vim-Helm: Soporte para plantillas de Kubernetes.
 * Markdown-Preview: Previsualizacion de Markdown en el navegador.
-
+* Render-Markdown: Renderizado estético directamente en el buffer de Neovim.
 ---
 
 ## Atajos de Teclado (Leader = Espacio)
