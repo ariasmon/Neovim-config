@@ -220,4 +220,20 @@ return {
       map('n', '<leader>b', function() dap.toggle_breakpoint() end, { desc = 'Debug: Breakpoint' })
     end
   },
+  -- ====================================================================
+  -- 11. RENDERIZADO MARKDOWN (IN-BUFFER)
+  -- ====================================================================
+  {
+    'MeanderingProgrammer/render-markdown.nvim',
+    dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' },
+    opts = {
+        render_modes = { 'n', 'c', 't', 'v', 'V' },
+        
+        heading = {
+            sign = false,
+            icons = { "󰲡 ", "󰲣 ", "󰲥 ", "󰲧 ", "󰲩 ", "󰲫 " },
+        },
+    },
+    ft = { "markdown" }, -- Solo se carga en archivos .md
+  },
 }
